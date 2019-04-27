@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: topicsys
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: gongwei5
+Implementation-Vendor-Id: com.pzhu
+Build-Jdk: 1.8.0_77
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+

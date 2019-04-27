@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.pzhu.topicsys.common.mybatis.mapper.TopicMapper">
+	<resultMap id="BaseResultMap"
+		type="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		<id column="topic_id" jdbcType="VARCHAR" property="topicId" />
+		<result column="topic_name" jdbcType="VARCHAR"
+			property="topicName" />
+		<result column="t_user_id" jdbcType="VARCHAR"
+			property="tUserId" />
+		<result column="s_user_id" jdbcType="VARCHAR"
+			property="sUserId" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="paper_address" jdbcType="VARCHAR"
+			property="paperAddress" />
+		<result column="is_delete" jdbcType="INTEGER"
+			property="isDelete" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		<result column="description" jdbcType="LONGVARCHAR"
+			property="description" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		topic_id, topic_name, t_user_id, s_user_id, status, paper_address, is_delete,
+		create_time,
+		update_time
+	</sql>
+	<sql id="Blob_Column_List">
+		description
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from topic
+		where topic_id = #{topicId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from topic
+		where topic_id = #{topicId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		insert into topic (topic_id, topic_name, t_user_id,
+		s_user_id, status, paper_address,
+		is_delete, create_time, update_time,
+		description)
+		values (#{topicId,jdbcType=VARCHAR}, #{topicName,jdbcType=VARCHAR},
+		#{tUserId,jdbcType=VARCHAR},
+		#{sUserId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{paperAddress,jdbcType=VARCHAR},
+		#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{description,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		insert into topic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="topicId != null">
+				topic_id,
+			</if>
+			<if test="topicName != null">
+				topic_name,
+			</if>
+			<if test="tUserId != null">
+				t_user_id,
+			</if>
+			<if test="sUserId != null">
+				s_user_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="paperAddress != null">
+				paper_address,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="topicId != null">
+				#{topicId,jdbcType=VARCHAR},
+			</if>
+			<if test="topicName != null">
+				#{topicName,jdbcType=VARCHAR},
+			</if>
+			<if test="tUserId != null">
+				#{tUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="sUserId != null">
+				#{sUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="paperAddress != null">
+				#{paperAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		update topic
+		<set>
+			<if test="topicName != null">
+				topic_name = #{topicName,jdbcType=VARCHAR},
+			</if>
+			<if test="tUserId != null">
+				t_user_id = #{tUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="sUserId != null">
+				s_user_id = #{sUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="paperAddress != null">
+				paper_address = #{paperAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where topic_id = #{topicId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		update topic
+		set topic_name = #{topicName,jdbcType=VARCHAR},
+		t_user_id = #{tUserId,jdbcType=VARCHAR},
+		s_user_id = #{sUserId,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		paper_address = #{paperAddress,jdbcType=VARCHAR},
+		is_delete = #{isDelete,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		description = #{description,jdbcType=LONGVARCHAR}
+		where topic_id = #{topicId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.pzhu.topicsys.common.mybatis.entity.Topic">
+		update topic
+		set topic_name = #{topicName,jdbcType=VARCHAR},
+		t_user_id = #{tUserId,jdbcType=VARCHAR},
+		s_user_id = #{sUserId,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		paper_address = #{paperAddress,jdbcType=VARCHAR},
+		is_delete = #{isDelete,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where topic_id = #{topicId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from topic
+		where s_user_id = #{sId,jdbcType=VARCHAR}
+		and is_delete = 0
+	</select>
+	<select id="findTopics"
+		resultType="com.pzhu.topicsys.modules.topic.model.TopicList">
+		SELECT
+			t.topic_id AS topicId,
+			t.topic_name AS name,
+			t.status,
+			t.paper_address AS paperAddress,
+			t.description AS description,
+			t.t_user_id AS tId,
+			t.s_user_id AS sId,
+			u_teacher.name AS tName,
+			u_student.name AS sName,
+			d.department_name AS tDepartment
+		FROM topic t
+			LEFT JOIN user u_student ON t.s_user_id = u_student.user_id
+			LEFT JOIN user u_teacher ON t.t_user_id = u_teacher.user_id
+			LEFT JOIN teacher te ON t.t_user_id = te.user_id
+			LEFT JOIN department d ON te.department_id = d.department_id
+		WHERE t.is_delete = 0
+		<if test="tName != null">
+			AND u_teacher.name like CONCAT('%', #{tName,jdbcType=VARCHAR}, '%')
+		</if>
+	</select>
+	<select id="findTopicsByTid"
+		resultType="com.pzhu.topicsys.modules.topic.model.TopicList">
+		SELECT
+			t.topic_id AS topicId,
+			t.topic_name AS name,
+			t.status,
+			t.paper_address AS paperAddress,
+			t.description AS description,
+			t.t_user_id AS tId,
+			t.s_user_id AS sId,
+			u_teacher.name AS tName,
+			u_student.name AS sName,
+			d.department_name AS tDepartment
+		FROM topic t
+			LEFT JOIN user u_student ON t.s_user_id = u_student.user_id
+			LEFT JOIN user u_teacher ON t.t_user_id = u_teacher.user_id
+			LEFT JOIN teacher te ON t.t_user_id = te.user_id
+			LEFT JOIN department d ON te.department_id = d.department_id
+		WHERE t.is_delete = 0
+		<if test="tId != null">
+			AND t.t_user_id = #{tId,jdbcType=VARCHAR}
+		</if>
+		<if test="tName != null">
+			AND u_teacher.name like CONCAT('%', #{tName,jdbcType=VARCHAR}, '%')
+		</if>
+	</select>
+	<select id="findTopicsBySid"
+		resultType="com.pzhu.topicsys.modules.topic.model.TopicList">
+		SELECT
+			t.topic_id AS topicId,
+			t.topic_name AS name,
+			t.status,
+			t.paper_address AS paperAddress,
+			t.description AS description,
+			t.t_user_id AS tId,
+			t.s_user_id AS sId,
+			u_teacher.name AS tName,
+			u_student.name AS sName,
+			d.department_name AS tDepartment
+		FROM topic t
+			LEFT JOIN user u_student ON t.s_user_id = u_student.user_id
+			LEFT JOIN user u_teacher ON t.t_user_id = u_teacher.user_id
+			LEFT JOIN teacher te ON t.t_user_id = te.user_id
+			LEFT JOIN department d ON te.department_id = d.department_id
+		WHERE t.is_delete = 0
+		<if test="sId != null">
+			AND t.s_user_id = #{sId,jdbcType=VARCHAR}
+		</if>
+		<if test="tName != null">
+			AND u_teacher.name like CONCAT('%', #{tName,jdbcType=VARCHAR}, '%')
+		</if>
+	</select>
+	<select id="findTopicsBySDepartment"
+		resultType="com.pzhu.topicsys.modules.topic.model.TopicList">
+		SELECT
+			t.topic_id AS topicId,
+			t.topic_name AS name,
+			t.status,
+			t.paper_address AS paperAddress,
+			t.description AS description,
+			t.t_user_id AS tId,
+			t.s_user_id AS sId,
+			u_teacher.name AS tName,
+			d.department_name AS tDepartment
+		FROM
+			student s,
+			teacher te,
+			topic t,
+			user u_teacher,
+			department d
+		WHERE t.is_delete = 0
+			AND te.department_id = s.department_id
+			AND t.t_user_id = te.user_id
+			AND u_teacher.user_id = t.t_user_id
+			AND s.department_id = d.department_id
+			AND (t.s_user_id IS NULL OR TRIM(t.s_user_id) = '')
+		<if test="sId != null">
+			AND s.user_id = #{sId,jdbcType=VARCHAR}
+		</if>
+		<if test="tName != null">
+			AND u_teacher.name like CONCAT('%', #{tName,jdbcType=VARCHAR}, '%')
+		</if>
+	</select>
+	<select id="getTopicByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from topic
+        where topic_name = #{name,jdbcType=VARCHAR}
+        and is_delete = 0
+    </select>
+    <select id="getTopicDetail"
+        resultType="com.pzhu.topicsys.modules.topic.model.TopicDetail">
+        SELECT
+            t.topic_id AS topicId,
+            t.topic_name AS name,
+            t.description,
+            t.status,
+            t.paper_address AS paperAddress,
+            
+            t.t_user_id AS tId,
+            u_teacher.username AS tUserName,
+            u_teacher.name AS tName,
+            d_teacher.department_name AS tDepartment,
+            sc.value AS tJobTitle,
+            te.phone AS tPhone,
+            
+            t.s_user_id AS sId,
+            u_student.username AS sUserName,
+            u_student.name AS sName,
+            d_student.department_name AS sDepartment,
+            s.phone AS sPhone
+        FROM topic t
+            LEFT JOIN user u_student ON t.s_user_id = u_student.user_id
+            LEFT JOIN user u_teacher ON t.t_user_id = u_teacher.user_id
+            LEFT JOIN teacher te ON t.t_user_id = te.user_id
+            LEFT JOIN student s ON t.s_user_id = s.user_id
+            LEFT JOIN department d_teacher ON te.department_id = d_teacher.department_id
+            LEFT JOIN department d_student ON s.department_id = d_student.department_id
+            LEFT JOIN system_config sc ON te.job_title_code = sc.code
+        WHERE t.is_delete = 0
+        <if test="topicId != null">
+            AND t.topic_id = #{topicId,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>
